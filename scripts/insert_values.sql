@@ -1,0 +1,2 @@
+INSERT INTO Simian(Dna, IsSimian, CreatedAt, UpdatedAt)
+VALUES ('["CTGAGA", "CTATGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"]', false, '2023-02-21 17:39:15.014961-05', '2023-02-21 17:39:15.014961-05');

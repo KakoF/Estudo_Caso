@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - ./scripts/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+      - ./scripts/insert_values.sql:/docker-entrypoint-initdb.d/insert_values.sql
+    environment:
+      POSTGRES_PASSWORD: simian_123456
+      POSTGRES_USER: simian_user
+      POSTGRES_DB: estudo_caso
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: simian_user
+      MONGO_INITDB_ROOT_PASSWORD: simian_123456
+    ports:
+      - "27017:27017"
+    command: mongod --bind_ip 0.0.0.0
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: simian_user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: simian_123456
+      ME_CONFIG_MONGODB_URL: mongodb://simian_user:simian_123456@mongo:27017/
