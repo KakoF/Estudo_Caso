@@ -8,4 +8,3 @@
 - Adicionar logs para o Mongo usando Nlog
 - Não utilizar Entity
 - Deixar base pronta, seja com docker ou script ao inicializar aplicação 
-- Monitoramento com Sonar
