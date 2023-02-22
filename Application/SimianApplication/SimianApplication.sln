@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimianApplication", "SimianApplication\SimianApplication.csproj", "{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimianApplication", "SimianApplication\SimianApplication.csproj", "{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimianTests", "SimianTests\SimianTests.csproj", "{B6F6BC01-526C-4FA1-AB07-0A8687D99C02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimianDomain", "SimianDomain\SimianDomain.csproj", "{06495388-A396-4E2B-8F9E-C9B23D6B4ACA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F6BC01-526C-4FA1-AB07-0A8687D99C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F6BC01-526C-4FA1-AB07-0A8687D99C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F6BC01-526C-4FA1-AB07-0A8687D99C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F6BC01-526C-4FA1-AB07-0A8687D99C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06495388-A396-4E2B-8F9E-C9B23D6B4ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06495388-A396-4E2B-8F9E-C9B23D6B4ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06495388-A396-4E2B-8F9E-C9B23D6B4ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06495388-A396-4E2B-8F9E-C9B23D6B4ACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
