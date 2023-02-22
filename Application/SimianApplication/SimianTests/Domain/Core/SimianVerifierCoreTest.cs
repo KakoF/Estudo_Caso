@@ -108,7 +108,7 @@ namespace SimianTests.Domain.Core
         //ctTaga
         //ccgact
         [Fact]
-        public void IsNotSimianColumnDiagonalReverse()
+        public void IsNotSimian()
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
