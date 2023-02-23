@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimianApplication", "SimianApplication\SimianApplication.csproj", "{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimianApplication", "SimianApplication\SimianApplication.csproj", "{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{F822F3EB-7552-446B-9729-D05A28426B4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{1A8723F1-F7A3-45D4-96A3-334918879017}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71510E8C-083E-4A39-A9FD-BAF007FCA1EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F822F3EB-7552-446B-9729-D05A28426B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F822F3EB-7552-446B-9729-D05A28426B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F822F3EB-7552-446B-9729-D05A28426B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F822F3EB-7552-446B-9729-D05A28426B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8723F1-F7A3-45D4-96A3-334918879017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8723F1-F7A3-45D4-96A3-334918879017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8723F1-F7A3-45D4-96A3-334918879017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8723F1-F7A3-45D4-96A3-334918879017}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
