@@ -8,7 +8,7 @@ namespace Service.Implementations
 
         public override bool CheckPattern(string[] dna)
         {
-            return false;
+            return true;
         }
     }
 }

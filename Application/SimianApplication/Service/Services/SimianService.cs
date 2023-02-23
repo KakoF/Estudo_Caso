@@ -6,25 +6,17 @@ namespace Service.Services
 {
     public class SimianService : ISimianService
     {
-        private readonly IEnumerable<SimianPatternAbstract> _simianPatterns;
-        public SimianService(IEnumerable<SimianPatternAbstract> simianPatterns)
+        private readonly ISimianPatternsExecute _patternsExecute;
+       
+        public SimianService(ISimianPatternsExecute patternsExecute)
         {
-            _simianPatterns = typeof(SimianPatternAbstract).Assembly.GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(SimianPatternAbstract)) && !t.IsAbstract)
-            .Select(t => (SimianPatternAbstract)Activator.CreateInstance(t));
+            _patternsExecute = patternsExecute;
         }
         public SimianResponseDTO VerifyDna(SimianRequestDTO data)
         {
-            var result = IsSimian(data);
+            var result = _patternsExecute.Execute(data.Dna);
             return new SimianResponseDTO(result.Where(x => x.Equals(true)).Count() >= 2);
         } 
-        private IEnumerable<bool> IsSimian(SimianRequestDTO data)
-        {
-            foreach (var pattern in _simianPatterns)
-            {
-                yield return pattern.CheckPattern(data.Dna);
-            }
-            
-        }
+        
     }
 }

@@ -12,14 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISimianService, SimianService>();
+builder.Services.AddScoped<ISimianPatternsExecute, SimianPatternsExecute>();
 
 builder.Services.AddScoped<SimianPatternAbstract, DiagonalSimianPattern>();
 builder.Services.AddScoped<SimianPatternAbstract, HorizontalSimianPattern>();
 builder.Services.AddScoped<SimianPatternAbstract, VerticalSimianPattern>();
-builder.Services.AddScoped<ISimianPattern>(sp => sp.GetRequiredService<SimianPatternAbstract>());
-
-//builder.Services.AddScoped<SimianPatternAbstration, DiagonallSimianPattern>();
-//builder.Services.AddScoped<ISimianPattern, SimianPatternAbstration>();
+//builder.Services.AddScoped<ISimianPattern>(sp => sp.GetRequiredService<SimianPatternAbstract>());
 
 var app = builder.Build();
 
