@@ -20,8 +20,11 @@ END;
 $BODY$
 language plpgsql;
 
-
 CREATE TRIGGER trig_simian
      AFTER INSERT ON simian
      FOR EACH ROW
      EXECUTE PROCEDURE increment_calc_simian();
+
+CREATE OR REPLACE VIEW view_calc_simian AS
+select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_not_simian) as count_is_not_simian, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_not_simian) / sum(total)) as is_not_simian_percent from simiancalc;
+  
