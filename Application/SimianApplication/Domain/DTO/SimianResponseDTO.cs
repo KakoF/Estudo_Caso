@@ -11,5 +11,11 @@ namespace Domain.DTO
     {
         [JsonPropertyName("is_simian")]
         public bool IsSimian { get; set; }
+
+        public SimianResponseDTO(bool isSimimian)
+        {
+            IsSimian= isSimimian;
+        }
+
     }
 }
