@@ -2,6 +2,7 @@ using Domain.Interfaces.Services;
 using Service.Services;
 using Service.Implementations;
 using Domain.Abstractions;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
+
 builder.Services.AddScoped<ISimianService, SimianService>();
 builder.Services.AddScoped<ISimianPatternsExecute, SimianPatternsExecute>();
 

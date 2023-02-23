@@ -20,6 +20,7 @@ namespace SimianApplication.Controllers
         [HttpPost]
         public SimianResponseDTO Post(SimianRequestDTO data)
         {
+            _logger.LogWarning("Teste de log");
             return _service.VerifyDna(data);
         }
     }
