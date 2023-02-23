@@ -10,8 +10,14 @@ namespace Service.Services
 {
     public class SimianDnaVerifyService : ISimianDnaVerifyService
     {
+        private readonly ISimianPattern _simianPattern;
+        public SimianDnaVerifyService(ISimianPattern simianPattern)
+        {
+            _simianPattern= simianPattern;
+        }
         public SimianResponseDTO Verify(SimianRequestDTO data)
         {
+            _simianPattern.CheckPattern(data.Dna);
             return new SimianResponseDTO();
         }
     }

@@ -1,5 +1,8 @@
 using Domain.Interfaces.Services;
+using Service.Abstractions;
 using Service.Services;
+using Service.Implementations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISimianDnaVerifyService, SimianDnaVerifyService>();
+
+builder.Services.AddScoped<SimianPatternAbstract, DiagonalSimianPattern>();
+builder.Services.AddScoped<SimianPatternAbstract, HorizontalSimianPattern>();
+builder.Services.AddScoped<SimianPatternAbstract, VerticalSimianPattern>();
+builder.Services.AddScoped<ISimianPattern>(sp => sp.GetRequiredService<SimianPatternAbstract>());
+
+//builder.Services.AddScoped<SimianPatternAbstration, DiagonallSimianPattern>();
+//builder.Services.AddScoped<ISimianPattern, SimianPatternAbstration>();
 
 var app = builder.Build();
 

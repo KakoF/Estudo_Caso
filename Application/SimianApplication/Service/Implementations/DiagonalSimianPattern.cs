@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Service.Implementations
 {
-    internal class DiagonallSimianPattern : SimianPatternAbstration
+    public class DiagonalSimianPattern : SimianPatternAbstract
     {
         public override string[] DefaultPattern => throw new NotImplementedException();
 
         public override bool CheckPattern(string[] dna)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
