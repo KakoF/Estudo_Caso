@@ -16,7 +16,7 @@ namespace Service.Services
         {
             _simianPatterns = typeof(SimianPatternAbstract).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(SimianPatternAbstract)) && !t.IsAbstract)
-            .Select(t => (SimianPatternAbstract?)Activator.CreateInstance(t));
+            .Select(t => (SimianPatternAbstract)Activator.CreateInstance(t));
         }
         public SimianResponseDTO Verify(SimianRequestDTO data)
         {
