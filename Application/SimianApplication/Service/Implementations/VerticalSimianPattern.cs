@@ -4,7 +4,7 @@ namespace Service.Implementations
 {
     public class VerticalSimianPattern : SimianPatternAbstract
     {
-        public override string[] DefaultPattern => throw new NotImplementedException();
+        public VerticalSimianPattern() : base() { }
 
         public override bool CheckPattern(string[] dna)
         {
