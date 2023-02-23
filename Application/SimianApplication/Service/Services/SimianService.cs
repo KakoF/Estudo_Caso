@@ -1,19 +1,19 @@
 ﻿using Domain.DTO;
 using Domain.Interfaces.Services;
-using Service.Abstractions;
+using Domain.Abstractions;
 
 namespace Service.Services
 {
-    public class SimianDnaVerifyService : ISimianDnaVerifyService
+    public class SimianService : ISimianService
     {
         private readonly IEnumerable<SimianPatternAbstract> _simianPatterns;
-        public SimianDnaVerifyService(IEnumerable<SimianPatternAbstract> simianPatterns)
+        public SimianService(IEnumerable<SimianPatternAbstract> simianPatterns)
         {
             _simianPatterns = typeof(SimianPatternAbstract).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(SimianPatternAbstract)) && !t.IsAbstract)
             .Select(t => (SimianPatternAbstract)Activator.CreateInstance(t));
         }
-        public SimianResponseDTO Verify(SimianRequestDTO data)
+        public SimianResponseDTO VerifyDna(SimianRequestDTO data)
         {
             var result = IsSimian(data);
             return new SimianResponseDTO(result.Where(x => x.Equals(true)).Count() >= 2);

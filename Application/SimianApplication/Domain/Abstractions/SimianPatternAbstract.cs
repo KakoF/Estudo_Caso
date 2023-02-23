@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces.Services;
 
-namespace Service.Abstractions
+namespace Domain.Abstractions
 {
     public abstract class SimianPatternAbstract : ISimianPattern
     {
@@ -10,3 +10,4 @@ namespace Service.Abstractions
 
     }
 }
+

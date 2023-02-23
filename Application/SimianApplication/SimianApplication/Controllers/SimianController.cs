@@ -9,9 +9,9 @@ namespace SimianApplication.Controllers
     public class SimianController : ControllerBase
     {
         private readonly ILogger<SimianController> _logger;
-        private readonly ISimianDnaVerifyService _service;
+        private readonly ISimianService _service;
 
-        public SimianController(ILogger<SimianController> logger, ISimianDnaVerifyService service)
+        public SimianController(ILogger<SimianController> logger, ISimianService service)
         {
             _logger = logger;
             _service = service;
@@ -20,7 +20,7 @@ namespace SimianApplication.Controllers
         [HttpPost]
         public SimianResponseDTO Post(SimianRequestDTO data)
         {
-            return _service.Verify(data);
+            return _service.VerifyDna(data);
         }
     }
 }
