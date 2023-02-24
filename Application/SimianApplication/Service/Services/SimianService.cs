@@ -22,6 +22,7 @@ namespace Service.Services
         }
         public async Task<SimianResponseDTO> VerifyDna(SimianRequestDTO data)
         {
+            _logger.LogWarning("Inicio de analise do Dna: {0}", string.Join(",", data.Dna));
             var result = _patternsExecute.Execute(data.Dna);
             var simian = new SimianEntity(string.Join(",", data.Dna), result.Where(x => x.Equals(true)).Count() >= 2);
             await _repository.Create(simian);

@@ -1,12 +1,18 @@
 ﻿using Domain.Abstractions;
 using Domain.Interfaces.Services;
+using Microsoft.Extensions.Logging;
+using Service.Services;
 using System.Text;
 
 namespace Service.Implementations
 {
     public class DiagonalSimianPattern : SimianPatternAbstract
     {
-        public DiagonalSimianPattern() : base() { }
+        private readonly ILogger<DiagonalSimianPattern> _logger;
+        public DiagonalSimianPattern(ILogger<DiagonalSimianPattern> logger) : base() 
+        {
+            _logger = logger;
+        }
         public override bool CheckPattern(string[] dna)
         {
             bool isSimian = false;
@@ -46,6 +52,7 @@ namespace Service.Implementations
                     }
                 }
             }
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);
             return isSimian;
         }
     }

@@ -16,9 +16,8 @@ namespace Infra.Repositories
         {
             using (var conn = _connector.dbConnection)
             {
-                var id = await conn.QuerySingleAsync<int>("INSERT INTO Simian(dna, is_simian) VALUES (@dna, @isSimian) RETURNING id;", new { dna = data.Dna, isSimian = data.IsSimian });
-                data.SetId(id);
-                return data;
+                var entity = await conn.QuerySingleAsync<SimianEntity>("INSERT INTO Simian(dna, is_simian) VALUES (@dna, @isSimian) RETURNING  id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt ;", new { dna = data.Dna, isSimian = data.IsSimian });
+                return entity;
             }
         }
 
