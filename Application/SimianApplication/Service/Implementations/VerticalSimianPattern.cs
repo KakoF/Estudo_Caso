@@ -1,4 +1,6 @@
 ﻿using Domain.Abstractions;
+using Domain.Interfaces.Services;
+using System.Text;
 
 namespace Service.Implementations
 {
@@ -8,7 +10,21 @@ namespace Service.Implementations
 
         public override bool CheckPattern(string[] dna)
         {
-            return true;
+            bool isSimian = false;
+            for (int y = 0; y < dna[0].Length && !isSimian; y++)
+            {
+                StringBuilder column = new StringBuilder();
+                foreach (var row in dna)
+                {
+                    column.Append(row[y]);
+                }
+                if (DefaultPattern.IsMatch(column.ToString()))
+                {
+                    isSimian = true;
+                    break;
+                }
+            }
+            return isSimian;
         }
     }
 }
