@@ -4,6 +4,6 @@ namespace Domain.Interfaces.Services
 {
     public interface ISimianService
     {
-        public SimianResponseDTO VerifyDna(SimianRequestDTO data);
+        public Task<SimianResponseDTO> VerifyDna(SimianRequestDTO data);
     }
 }

@@ -18,10 +18,9 @@ namespace SimianApplication.Controllers
         }
 
         [HttpPost]
-        public SimianResponseDTO Post(SimianRequestDTO data)
+        public async Task<SimianResponseDTO> Post(SimianRequestDTO data)
         {
-            _logger.LogWarning("Teste de log");
-            return _service.VerifyDna(data);
+            return await _service.VerifyDna(data);
         }
     }
 }
