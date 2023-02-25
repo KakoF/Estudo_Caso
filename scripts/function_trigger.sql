@@ -6,13 +6,13 @@ begin
 		if new.is_simian = true  then
 			update simiancalc set total = total + 1, count_is_simian = count_is_simian + 1, updated_at = now() where id = CURRENT_DATE;
 		else 
-			update simiancalc set total = total + 1, count_is_not_simian = count_is_not_simian + 1, updated_at = now() where id = CURRENT_DATE;
+			update simiancalc set total = total + 1, count_is_human = count_is_human + 1, updated_at = now() where id = CURRENT_DATE;
 		end if; 
 	else 
 		if new.is_simian = true then 
-			insert into simiancalc (id, total, count_is_simian , count_is_not_simian)VALUES (CURRENT_DATE, 1, 1, 0);
+			insert into simiancalc (id, total, count_is_simian , count_is_human)VALUES (CURRENT_DATE, 1, 1, 0);
 		else 
-			insert into simiancalc (id, total, count_is_simian , count_is_not_simian)VALUES (CURRENT_DATE, 1, 0, 1);
+			insert into simiancalc (id, total, count_is_simian , count_is_human)VALUES (CURRENT_DATE, 1, 0, 1);
 		end if;
 	end if;
 RETURN new;
@@ -26,5 +26,6 @@ CREATE TRIGGER trig_simian
      EXECUTE PROCEDURE increment_calc_simian();
 
 CREATE OR REPLACE VIEW view_calc_simian AS
-select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_not_simian) as count_is_not_simian, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_not_simian) / sum(total)) as is_not_simian_percent from simiancalc;
+select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_human) as count_is_human, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_human) / sum(total)) as is_human_percent, (sum(count_is_simian) / sum(count_is_human)) as ratio from simiancalc;
+--select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_human) as count_is_human, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_human) / sum(total)) as is_human_percent, ratio from simiancalc;
   

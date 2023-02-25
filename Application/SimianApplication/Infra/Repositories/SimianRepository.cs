@@ -14,29 +14,19 @@ namespace Infra.Repositories
         }
         public async Task<SimianEntity> Create(SimianEntity data)
         {
-            using (var conn = _connector.dbConnection)
-            {
-                var entity = await conn.QuerySingleAsync<SimianEntity>("INSERT INTO Simian(dna, is_simian) VALUES (@dna, @isSimian) RETURNING  id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt ;", new { dna = data.Dna, isSimian = data.IsSimian });
-                return entity;
-            }
+            var entity = await _connector.dbConnection.QuerySingleAsync<SimianEntity>("INSERT INTO Simian(dna, is_simian) VALUES (@dna, @isSimian) RETURNING  id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt ;", new { dna = data.Dna, isSimian = data.IsSimian });
+            return entity;
         }
 
         public async Task<IEnumerable<SimianEntity>> Get()
         {
-            using (var conn = _connector.dbConnection)
-            {
-                return await conn.QueryAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian");
-            }
-           
+            return await _connector.dbConnection.QueryAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian");
+
         }
 
         public async Task<SimianEntity> Get(string dna)
         {
-            using (var conn = _connector.dbConnection)
-            {
-                return await conn.QueryFirstOrDefaultAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian where dna = @dna", new { dna });
-            }
-
+            return await _connector.dbConnection.QueryFirstOrDefaultAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian where dna = @dna", new { dna });
         }
     }
 }

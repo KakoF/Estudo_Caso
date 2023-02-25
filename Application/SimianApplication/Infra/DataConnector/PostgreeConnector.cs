@@ -1,15 +1,16 @@
 ﻿using Infra.Interfaces;
 using Npgsql;
 using System.Data;
+using System.Data.Common;
 
 namespace Infra.DataConnector
 {
-    public class PostgreeConnector : IDbConnector
+    public class PostgreeConnector : IDbConnector, IDisposable
     {
         public PostgreeConnector(string connectionString)
         {
             dbConnection = new NpgsqlConnection(connectionString);
-            //dbConnection.ConnectionString = connectionString;
+            dbConnection.Open();
         }
 
         public IDbConnection dbConnection { get; }
@@ -33,7 +34,7 @@ namespace Infra.DataConnector
 
         public void Dispose()
         {
-            dbConnection?.Dispose();
+            dbConnection.Dispose();
         }
     }
 }
