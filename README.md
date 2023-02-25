@@ -15,3 +15,4 @@ https://renatogroffe.medium.com/postgresql-docker-compose-criando-rapidamente-am
 https://stackoverflow.com/questions/55726225/trigger-to-update-a-count-number-based-on-another-table-records
 https://medium.com/beelabacademy/implementando-na-pr%C3%A1tica-rest-api-com-conceitos-de-ddd-net-2160291a44b7
 https://bytelanguage.com/2022/03/30/nlog-and-mongodb/
+https://www.youtube.com/watch?v=ePrWPblO-H4
