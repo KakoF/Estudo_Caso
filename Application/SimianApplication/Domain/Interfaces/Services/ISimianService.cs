@@ -1,9 +1,9 @@
-﻿using Domain.DTO;
+﻿using Domain.DTO.IsSimianDTO;
 
 namespace Domain.Interfaces.Services
 {
     public interface ISimianService
     {
-        public Task<SimianResponseDTO> VerifyDna(SimianRequestDTO data);
+        public Task<IsSimianResponseDTO> VerifyDna(IsSimianRequestDTO data);
     }
 }

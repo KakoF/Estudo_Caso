@@ -1,4 +1,4 @@
-using Domain.DTO;
+using Domain.DTO.IsSimianDTO;
 using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace SimianApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<SimianResponseDTO> Post(SimianRequestDTO data)
+        public async Task<IsSimianResponseDTO> Post(IsSimianRequestDTO data)
         {
             return await _service.VerifyDna(data);
         }
