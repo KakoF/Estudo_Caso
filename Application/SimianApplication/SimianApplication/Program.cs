@@ -2,13 +2,19 @@ using NLog.Web;
 using Infra.Interfaces;
 using Infra.DataConnector;
 using SimianApplication.Extensions;
-using SimianApplication.Middlewares;
+using FluentValidation.AspNetCore;
+using System.Reflection;
+using Domain.DTO.IsSimianDTO.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(options => options.Filters.Add<NotificationMiddleware>());
+builder.Services.AddControllers().AddFluentValidation(fv =>
+{
+    fv.RegisterValidatorsFromAssemblyContaining<IsSimianValidator>();
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

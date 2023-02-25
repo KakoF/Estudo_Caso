@@ -2,14 +2,14 @@
 
 namespace Domain.DTO.IsSimianDTO
 {
-    public class IsSimianRequestDTO : BaseRequestDTO
+    public class IsSimianRequestDTO
     {
         public string[] Dna { get; set; }
 
-        public IsSimianRequestDTO(string[] dna)
+        /*public IsSimianRequestDTO(string[] dna)
         {
             Dna = dna;
-            Validate(this, new IsSimianValidator());
-        }
+            _ = ValidateAsync(this, new IsSimianValidator());
+        }*/
     }
 }

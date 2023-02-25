@@ -25,5 +25,9 @@ namespace Domain.Entities
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
+        public static implicit operator bool(SimianEntity v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

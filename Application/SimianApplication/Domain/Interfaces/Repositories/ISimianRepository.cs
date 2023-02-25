@@ -7,5 +7,7 @@ namespace Domain.Interfaces.Repositories
         Task<SimianEntity> Create(SimianEntity data);
 
         Task<IEnumerable<SimianEntity>> Get();
+
+        Task<SimianEntity> Get(string dna);
     }
 }

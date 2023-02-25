@@ -1,22 +1,32 @@
-﻿using FluentValidation;
+﻿using Domain.Interfaces.Repositories;
+using FluentValidation;
 
 namespace Domain.DTO.IsSimianDTO.Validators
 {
-    internal class IsSimianValidator : AbstractValidator<IsSimianRequestDTO>
+    public class IsSimianValidator : AbstractValidator<IsSimianRequestDTO>
     {
-        public IsSimianValidator()
+        private ISimianRepository _repository;
+        public IsSimianValidator(ISimianRepository repository)
         {
+            _repository = repository;
             RuleFor(a => a.Dna)
+                .NotEmpty().WithMessage("Dna não pode ser vazio")
+                .MustAsync(async (value, c) => await UniqueRegister(string.Join(",", value))).WithMessage("Dna ja existe na base.")
                 .ChildRules(x =>
                 {
                     x.RuleForEach(x => x).MinimumLength(7).WithMessage("Cadeia de Dna's devem ter 6 elementos"); ;
-                })
-                .NotEmpty()
-                .WithMessage("Dna não pode ser vazio");
+                });
+        }
 
-            
+        public async Task<bool> UniqueRegister(string dna)
+        {
+            var entity = await _repository.Get(dna);
 
-
+            if (entity == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
