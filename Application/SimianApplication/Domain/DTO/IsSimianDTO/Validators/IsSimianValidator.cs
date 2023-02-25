@@ -14,7 +14,7 @@ namespace Domain.DTO.IsSimianDTO.Validators
                 .MustAsync(async (value, c) => await UniqueRegister(string.Join(",", value))).WithMessage("Dna ja existe na base.")
                 .ChildRules(x =>
                 {
-                    x.RuleForEach(x => x).MinimumLength(7).WithMessage("Cadeia de Dna's devem ter 6 elementos"); ;
+                    x.RuleForEach(x => x).MinimumLength(6).WithMessage("Cadeia de Dna's devem ter 6 elementos"); ;
                 });
         }
 
