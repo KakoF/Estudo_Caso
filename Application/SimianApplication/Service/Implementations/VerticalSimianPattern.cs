@@ -1,6 +1,10 @@
 ﻿using Domain.Abstractions;
 using Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
+using System;
+using System.Data.Common;
+using System.Reflection;
 using System.Text;
 
 namespace Service.Implementations
@@ -16,20 +20,16 @@ namespace Service.Implementations
         public override bool CheckPattern(string[] dna)
         {
             bool isSimian = false;
-            for (int y = 0; y < dna[0].Length && !isSimian; y++)
+            foreach (var step in dna.OrderByDescending(s => s.Length).First().Select((value, index) => new { index, value }))
             {
-                StringBuilder column = new StringBuilder();
-                foreach (var row in dna)
-                {
-                    column.Append(row[y]);
-                }
-                if (DefaultPattern.IsMatch(column.ToString()))
+                string joinedDna = string.Join("", dna.Select(s => string.IsNullOrEmpty(s) ? "" : s.Substring(step.index, 1)));
+                if (DefaultPattern.IsMatch(joinedDna))
                 {
                     isSimian = true;
                     break;
                 }
             }
-            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna) , isSimian);
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);
             return isSimian;
         }
     }
