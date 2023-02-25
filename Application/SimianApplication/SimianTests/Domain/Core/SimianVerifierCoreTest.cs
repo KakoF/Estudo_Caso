@@ -13,11 +13,11 @@ namespace SimianTests.Domain.Core
 
         [Fact]
 
-        public void IsSimianLinearSequential_a() 
+        public void IsSimianLinearSequential_a_g() 
         { 
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ctgaga", "agtcag", "actgtg", "ctaaaa","ctgagt", "ctgtct" };
+            string[] dna = { "ctgaga", "agtcag", "actgtg", "ctaaaa","cggggt", "ctgtct" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
@@ -25,11 +25,11 @@ namespace SimianTests.Domain.Core
         }
 
         [Fact]
-        public void IsSimianLinearSequential_t()
+        public void IsSimianLinearSequential_c_t()
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ctgaga", "agtcag", "actgtg", "ctatac", "cttttt", "ctgtct" };
+            string[] dna = { "ccccga", "agtcag", "actgtg", "ctatac", "cttttt", "ctgtct" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
@@ -41,24 +41,24 @@ namespace SimianTests.Domain.Core
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ctgaga", "atgcag", "atcgtg", "atatct", "ctgagt", "ctgtct" };
+            string[] dna = { "ctgaga", "atgcag", "atcgtg", "atatcg", "ctgagg", "ctgtcg" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
             Assert.True(result);
         }
         //ccagta
-        //atgcag
-        //atcgag
-        //agatgc
-        //ctgagg
-        //ctgtct
+        //atGcag
+        //atcGag
+        //agatGc
+        //ctgagG
+        //cgTTTT
         [Fact]
-        public void IsSimianColumnDiagonal()
+        public void IsSimianColumnDiagonalAndLinear()
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ccgata", "atgcag", "atcgag", "agatgc", "ctgagg", "ctgtct" };
+            string[] dna = { "ccgata", "atgcag", "atcgag", "agatgc", "ctgagg", "cgtttt" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
@@ -66,17 +66,17 @@ namespace SimianTests.Domain.Core
         }
 
         //ccagta
-        //atgcag
+        //Atgcag
         //Atcgag
-        //aAatgc
-        //ctAaga
+        //AAatgc
+        //AtAaga
         //ctgAct
         [Fact]
-        public void IsSimianColumnDiagonal2()
+        public void IsSimianColumnDiagonalAndColumn()
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ccgata", "atgcag", "atcgag", "aaatgc", "ctaaga", "ctgact" };
+            string[] dna = { "ccgata", "atgcag", "atcgag", "aaatgc", "ataaga", "ctgact" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
@@ -88,13 +88,13 @@ namespace SimianTests.Domain.Core
         //ctcgTg
         //aaaTgc
         //ctTaga
-        //cTgact
+        //TTTTct
         [Fact]
-        public void IsSimianColumnDiagonalReverse()
+        public void IsSimianColumnDiagonalReverseAndLinear()
         {
             //Arrange
             ISimianVerifierCore Core = new SimianVerifierCore();
-            string[] dna = { "ccagta", "atgcat", "ctcgtg", "aaatgc", "cttaga", "ctgact" };
+            string[] dna = { "ccagta", "atgcat", "ctcgtg", "aaatgc", "cttaga", "ttttct" };
             //Act
             var result = Core.VerifyAsync(dna).Result;
             //Assert
@@ -119,5 +119,22 @@ namespace SimianTests.Domain.Core
             Assert.False(result);
         }
 
+        //CCCCta
+        //atgcaa
+        //ctcgTg
+        //aaaTgc
+        //ctTaga
+        //ccgact
+        [Fact]
+        public void IsNotSimianWithOneSequence()
+        {
+            //Arrange
+            ISimianVerifierCore Core = new SimianVerifierCore();
+            string[] dna = { "ccccta", "atgcaa", "ctcgtg", "aaatgc", "cttaga", "ccgact" };
+            //Act
+            var result = Core.VerifyAsync(dna).Result;
+            //Assert
+            Assert.False(result);
+        }
     }
 }
