@@ -1,7 +1,5 @@
 ﻿using Domain.Abstractions;
-using Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using Service.Services;
 using System.Text;
 
 namespace Service.Implementations

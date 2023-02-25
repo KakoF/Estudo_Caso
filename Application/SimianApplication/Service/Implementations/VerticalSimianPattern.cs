@@ -1,11 +1,5 @@
 ﻿using Domain.Abstractions;
-using Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
-using System;
-using System.Data.Common;
-using System.Reflection;
-using System.Text;
 
 namespace Service.Implementations
 {

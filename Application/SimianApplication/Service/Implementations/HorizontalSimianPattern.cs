@@ -1,5 +1,4 @@
 ﻿using Domain.Abstractions;
-using Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Service.Implementations

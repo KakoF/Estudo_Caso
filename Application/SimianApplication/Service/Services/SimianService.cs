@@ -14,8 +14,6 @@ namespace Service.Services
         private readonly ISimianRepository _repository;
         private readonly NotificationContext _notificationContext;
 
-
-
         public SimianService(ILogger<SimianService> logger, ISimianPatternsExecute patternsExecute, ISimianRepository repository, NotificationContext notificationContext)
         {
             _logger = logger;
