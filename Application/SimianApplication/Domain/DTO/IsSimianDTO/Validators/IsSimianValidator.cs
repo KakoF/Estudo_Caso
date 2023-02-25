@@ -20,7 +20,7 @@ namespace Domain.DTO.IsSimianDTO.Validators
 
         public async Task<bool> UniqueRegister(string dna)
         {
-            var entity = await _repository.Get(dna);
+            var entity = await _repository.GetAsync(dna);
 
             if (entity == null)
             {

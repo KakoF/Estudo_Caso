@@ -4,10 +4,10 @@ namespace Domain.Interfaces.Repositories
 {
     public interface ISimianRepository
     {
-        Task<SimianEntity> Create(SimianEntity data);
+        Task<SimianEntity> CreateAsync(SimianEntity data);
 
-        Task<IEnumerable<SimianEntity>> Get();
+        Task<IEnumerable<SimianEntity>> GetAsync();
 
-        Task<SimianEntity> Get(string dna);
+        Task<SimianEntity> GetAsync(string dna);
     }
 }

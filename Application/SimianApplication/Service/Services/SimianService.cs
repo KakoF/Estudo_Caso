@@ -18,12 +18,12 @@ namespace Service.Services
             _patternsExecute = patternsExecute;
             _repository = repository;
         }
-        public async Task<IsSimianResponseDTO> VerifyDna(IsSimianRequestDTO data)
+        public async Task<IsSimianResponseDTO> VerifyDnaAsync(IsSimianRequestDTO data)
         {
             _logger.LogWarning("Inicio de analise do Dna: {0}", string.Join(",", data.Dna));
             var isSimian = _patternsExecute.Execute(data.Dna).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
-            await _repository.Create(simian);
+            await _repository.CreateAsync(simian);
             return new IsSimianResponseDTO(simian.IsSimian);
         } 
         

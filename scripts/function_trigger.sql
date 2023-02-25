@@ -26,6 +26,6 @@ CREATE TRIGGER trig_simian
      EXECUTE PROCEDURE increment_calc_simian();
 
 CREATE OR REPLACE VIEW view_calc_simian AS
-select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_human) as count_is_human, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_human) / sum(total)) as is_human_percent, (sum(count_is_simian) / sum(count_is_human)) as ratio from simiancalc;
+select max(id), sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_human) as count_is_human, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_human) / sum(total)) as is_human_percent, (sum(count_is_simian) / sum(count_is_human)) as ratio from simiancalc;
 --select sum(total) as total, sum(count_is_simian) as count_is_simian, sum(count_is_human) as count_is_human, (sum(count_is_simian) / sum(total)) as is_simian_percent, (sum(count_is_human) / sum(total)) as is_human_percent, ratio from simiancalc;
   

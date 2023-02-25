@@ -8,19 +8,17 @@ namespace SimianApplication.Controllers
     [Route("[controller]")]
     public class SimianController : ControllerBase
     {
-        private readonly ILogger<SimianController> _logger;
         private readonly ISimianService _service;
 
-        public SimianController(ILogger<SimianController> logger, ISimianService service)
+        public SimianController(ISimianService service)
         {
-            _logger = logger;
             _service = service;
         }
 
         [HttpPost]
         public async Task<IsSimianResponseDTO> Post(IsSimianRequestDTO data)
         {
-            return await _service.VerifyDna(data);
+            return await _service.VerifyDnaAsync(data);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace SimianApplication.Extensions
         {
 
             services.AddScoped<ISimianRepository, SimianRepository>();
+            services.AddScoped<ISimianCalcRepository, SimianCalcRepository>();
+            services.AddScoped<IStatsService, StatsService>();
             services.AddScoped<ISimianService, SimianService>();
             services.AddScoped<ISimianPatternsExecute, SimianPatternsExecute>();
 
