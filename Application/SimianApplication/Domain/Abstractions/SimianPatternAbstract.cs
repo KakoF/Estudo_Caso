@@ -12,7 +12,7 @@ namespace Domain.Abstractions
             DefaultPattern = new Regex(@"(aaaa|cccc|tttt|gggg)", RegexOptions.IgnoreCase);
         }
 
-        public abstract bool CheckPattern(string[] dna);
+        public abstract bool[] CheckPattern(string[] dna);
 
     }
 }

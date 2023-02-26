@@ -21,11 +21,22 @@ namespace Service.Services
         public async Task<IsSimianResponseDTO> VerifyDnaAsync(IsSimianRequestDTO data)
         {
             _logger.LogWarning("Inicio de analise do Dna: {0}", string.Join(",", data.Dna));
-            var isSimian = _patternsExecute.Execute(data.Dna).Where(x => x.Equals(true)).Count() >= 2;
+            var isSimian = ParseArray(_patternsExecute.Execute(data.Dna)).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
             await _repository.CreateAsync(simian);
             return new IsSimianResponseDTO(simian.IsSimian);
-        } 
-        
+        }
+
+        private IEnumerable<bool> ParseArray(IEnumerable<bool[]> array)
+        {
+            List<bool> list = new List<bool>();
+            foreach (var result in array)
+            {
+                list.AddRange(result);
+            }
+            return list;
+
+        }
+
     }
 }

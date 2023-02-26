@@ -1,5 +1,6 @@
 ﻿using Domain.Abstractions;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Service.Implementations
 {
@@ -11,19 +12,16 @@ namespace Service.Implementations
             _logger = logger;
         }
 
-        public override bool CheckPattern(string[] dna)
+        public override bool[] CheckPattern(string[] dna)
         {
-            bool isSimian = false;
+            bool[] isSimian = new bool[dna.Length];
             foreach (var step in dna.OrderByDescending(s => s.Length).First().Select((value, index) => new { index, value }))
             {
                 string joinedDna = string.Join("", dna.Select(s => string.IsNullOrEmpty(s) ? "" : s.Substring(step.index, 1)));
-                if (DefaultPattern.IsMatch(joinedDna))
-                {
-                    isSimian = true;
-                    break;
-                }
+                isSimian[step.index] = DefaultPattern.IsMatch(joinedDna);
+
             }
-            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian.Select(x => x));
             return isSimian;
         }
     }

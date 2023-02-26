@@ -11,18 +11,13 @@ namespace Service.Implementations
             _logger = logger;
         }
 
-        public override bool CheckPattern(string[] dna)
+        public override bool[] CheckPattern(string[] dna)
         {
-            bool isSimian = false;
-            foreach (var row in dna)
-            {
-                if (DefaultPattern.IsMatch(row))
-                {
-                    isSimian = true;
-                    break;
-                }
-            }
-            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);
+            bool[] isSimian = new bool[dna.Length];
+            foreach (var row in dna.Select((value, index) => new { index, value }))
+                isSimian[row.index] = DefaultPattern.IsMatch(row.value);
+            
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian.Select(x => x));
             return isSimian;
         }
     }

@@ -7,14 +7,15 @@ namespace Service.Implementations
     public class DiagonalSimianPattern : SimianPatternAbstract
     {
         private readonly ILogger<DiagonalSimianPattern> _logger;
-        public DiagonalSimianPattern(ILogger<DiagonalSimianPattern> logger) : base() 
+        public DiagonalSimianPattern(ILogger<DiagonalSimianPattern> logger) : base()
         {
             _logger = logger;
         }
-        public override bool CheckPattern(string[] dna)
+        public override bool[] CheckPattern(string[] dna)
         {
-            bool isSimian = false;
-            for (int x = dna.Length - 1; x >= 0 && !isSimian; x--)
+
+            bool[] isSimian = new bool[dna.Length];
+            for (int x = dna.Length - 1; x >= 0; x--)
             {
                 for (int y = dna[x].Length - 1; y >= 0; y--)
                 {
@@ -25,14 +26,10 @@ namespace Service.Implementations
                     {
                         sequence.Append(dna[row++][columnCount--]);
                     }
-                    if (DefaultPattern.IsMatch(sequence.ToString()))
-                    {
-                        isSimian = true;
-                        break;
-                    }
+                    isSimian[x] = DefaultPattern.IsMatch(sequence.ToString());
                 }
             }
-            for (int x = dna.Length - 1; x >= 0 && !isSimian; x--)
+            for (int x = dna.Length - 1; x >= 0; x--)
             {
                 for (int y = dna[x].Length - 1; y >= 0; y--)
                 {
@@ -43,11 +40,7 @@ namespace Service.Implementations
                     {
                         sequence.Append(dna[row++][columnCount--]);
                     }
-                    if (DefaultPattern.IsMatch(sequence.ToString()))
-                    {
-                        isSimian = true;
-                        break;
-                    }
+                    isSimian[x] = DefaultPattern.IsMatch(sequence.ToString());
                 }
             }
             _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);

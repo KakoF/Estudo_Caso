@@ -12,7 +12,7 @@ namespace Service.Services
             _patterns = patterns;
         }
 
-        public IEnumerable<bool> Execute(string[] dna)
+        public IEnumerable<bool[]> Execute(string[] dna)
         {
             foreach (var pattern in _patterns)
             {
