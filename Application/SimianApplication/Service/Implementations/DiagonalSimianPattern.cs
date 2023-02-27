@@ -1,6 +1,5 @@
 ﻿using Domain.Abstractions;
 using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace Service.Implementations
 {
@@ -11,40 +10,103 @@ namespace Service.Implementations
         {
             _logger = logger;
         }
+
+        private List<string> ParseDiagonalArray(string[,] newArray, int arrayLength)
+        {
+            List<string> newSimianList = new List<string>();
+
+            for (int col = 0; col < arrayLength; col++)
+            {
+                string diagonalPattern = "";
+                int startcol = col, startrow = 0;
+                while (startcol >= 0 && startrow < arrayLength)
+                {
+                    diagonalPattern += (newArray[startrow, startcol]);
+                    startcol--;
+                    startrow++;
+                }
+
+                newSimianList.Add(diagonalPattern);
+            }
+
+            for (int row = 1; row < arrayLength; row++)
+            {
+                string diagonalPattern = "";
+                int startrow = row, startcol = arrayLength - 1;
+                while (startrow < arrayLength && startcol >= 0)
+                {
+                    diagonalPattern += (newArray[startrow, startcol]);
+                    startcol--;
+                    startrow++;
+                }
+                newSimianList.Add(diagonalPattern);
+            }
+
+            return newSimianList;
+        }
+
+        private List<string> ParseDiagonalReverseArray(string[,] newArray, int arrayLength)
+        {
+            List<string> newSimianList = new List<string>();
+
+            for (int col = 0; col < arrayLength; col++)
+            {
+                string diagonalPattern = "";
+                int startcol = col, startrow = arrayLength;
+                while (startcol >= 0 && startrow >= 0)
+                {
+                    diagonalPattern += (newArray[startrow - 1, startcol]);
+                    startcol--;
+                    startrow--;
+                }
+
+                newSimianList.Add(diagonalPattern);
+            }
+            for (int row = arrayLength - 2; row >= 0; row--)
+            {
+                string diagonalPattern = "";
+                int startrow = row, startcol = arrayLength - 1;
+                while (startrow >= 0 && startcol > 0)
+                {
+                    diagonalPattern += (newArray[startrow, startcol]);
+                    startcol--;
+                    startrow--;
+                }
+                newSimianList.Add(diagonalPattern);
+            }
+            return newSimianList;
+        }
+
+        private string[] ParseDiagonalSimian(string[,] newArray, int length)
+        {
+            List<string> list = new List<string>();
+            var array = ParseDiagonalArray(newArray, length);
+            var array2 = ParseDiagonalReverseArray(newArray, length);
+            list.AddRange(array); list.AddRange(array2);
+            return list.ToArray();
+        }
+
         public override bool[] CheckPattern(string[] dna)
         {
+            string[,] newArray = new string[dna.Length, dna.Length];
+            foreach (var item in dna.Select((value, index) => new { index, value }))
+            {
+                char[] row = item.value.ToCharArray();
+                foreach (var chars in row.Select((value, index) => new { index, value }))
+                {
+                    newArray[item.index, chars.index] = chars.value.ToString();
+                }
+            }
+            var newArraySimian = ParseDiagonalSimian(newArray, dna.Length);
+            bool[] isSimian = new bool[newArraySimian.Length];
+            foreach (var row in newArraySimian.Select((value, index) => new { index, value }))
+                isSimian[row.index] = DefaultPattern.IsMatch(row.value);
 
-            bool[] isSimian = new bool[dna.Length];
-            for (int x = dna.Length - 1; x >= 0; x--)
-            {
-                for (int y = dna[x].Length - 1; y >= 0; y--)
-                {
-                    StringBuilder sequence = new StringBuilder();
-                    var columnCount = y;
-                    int row = x;
-                    while (row < dna.Length && columnCount >= 0)
-                    {
-                        sequence.Append(dna[row++][columnCount--]);
-                    }
-                    isSimian[x] = DefaultPattern.IsMatch(sequence.ToString());
-                }
-            }
-            for (int x = dna.Length - 1; x >= 0; x--)
-            {
-                for (int y = dna[x].Length - 1; y >= 0; y--)
-                {
-                    StringBuilder sequence = new StringBuilder();
-                    var columnCount = y;
-                    int row = x;
-                    while (row < dna.Length && columnCount >= 0)
-                    {
-                        sequence.Append(dna[row++][columnCount--]);
-                    }
-                    isSimian[x] = DefaultPattern.IsMatch(sequence.ToString());
-                }
-            }
-            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian);
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", newArraySimian), isSimian.Select(x => x));
+
             return isSimian;
         }
+
+       
     }
 }
