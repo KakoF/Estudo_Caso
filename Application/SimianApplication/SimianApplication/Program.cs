@@ -5,15 +5,25 @@ using SimianApplication.Extensions;
 using FluentValidation.AspNetCore;
 using System.Reflection;
 using Domain.DTO.IsSimianDTO.Validators;
+using Domain.DTO.IsSimianDTO;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using SimianApplication.Helpers.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddFluentValidation(fv =>
+builder.Services.AddControllers(options =>
 {
-    fv.RegisterValidatorsFromAssemblyContaining<IsSimianValidator>();
+    options.Filters.Add(typeof(ValidationMiddleware));
+}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssembly(typeof(Program).Assembly));
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
 });
+builder.Services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
