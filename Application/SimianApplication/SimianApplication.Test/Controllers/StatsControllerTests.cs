@@ -23,7 +23,7 @@ namespace SimianApplication.Test.Controllers
         }
 
         [Fact]
-        public async Task Get_StateUnderTest_ExpectedBehavior_ReturnStatsResult()
+        public async Task Get_Expected_Return_Stats_Result()
         {
             // Arrange
             _mockStatsService.Setup(c => c.GetStatsAsync()).ReturnsAsync(new StatsResponseDTO(1, 2, (decimal)0.5));

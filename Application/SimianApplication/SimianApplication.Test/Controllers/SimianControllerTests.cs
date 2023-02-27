@@ -27,7 +27,7 @@ namespace SimianApplication.Test.Controllers
         }
 
         [Fact]
-        public async Task Post_StateUnderTest_ExpectedBehavior_ReturnTrueDnaResult()
+        public async Task Post_Expected_Return_True_Dna_Result()
         {
             // Arrange
             string[] dna = new string[] {
@@ -45,7 +45,7 @@ namespace SimianApplication.Test.Controllers
         }
 
         [Fact]
-        public async Task Post_StateUnderTest_ExpectedBehavior_ReturnFalseDnaResult()
+        public async Task Post_Expected_Return_False_Dna_Result()
         {
             // Arrange
             string[] dna = new string[] {
