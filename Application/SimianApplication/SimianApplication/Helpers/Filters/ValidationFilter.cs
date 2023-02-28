@@ -4,7 +4,7 @@ using System.Net;
 
 namespace SimianApplication.Helpers.Filters
 {
-    public class ValidationMiddleware : IAsyncActionFilter
+    public class ValidationFilter : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

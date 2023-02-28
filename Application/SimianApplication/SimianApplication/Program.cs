@@ -9,14 +9,18 @@ using Domain.DTO.IsSimianDTO;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using SimianApplication.Helpers.Filters;
+using Domain.Interfaces.Notifications;
+using Domain.Notifications;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add(typeof(ValidationMiddleware));
+    options.Filters.Add(typeof(ValidationFilter));
+    options.Filters.Add(typeof(NotificationFilter));
 }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssembly(typeof(Program).Assembly));
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>

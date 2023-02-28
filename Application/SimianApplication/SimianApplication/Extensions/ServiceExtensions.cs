@@ -1,6 +1,8 @@
 ﻿using Domain.Abstractions;
+using Domain.Interfaces.Notifications;
 using Domain.Interfaces.Repositories;
 using Domain.Interfaces.Services;
+using Domain.Notifications;
 using Infra.Repositories;
 using Service.Implementations;
 using Service.Services;
@@ -21,6 +23,7 @@ namespace SimianApplication.Extensions
             services.AddScoped<SimianPatternAbstract, DiagonalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, HorizontalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, VerticalSimianPattern>();
+           
            
             return services;
         }
