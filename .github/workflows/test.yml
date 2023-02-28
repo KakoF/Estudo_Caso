@@ -53,7 +53,7 @@ jobs:
           SONAR_TOKEN_USE_CASE: ${{ secrets.SONAR_TOKEN_USE_CASE }}
         shell: pwsh
         run: |
-          dotnet sonarscanner begin /k:"KakoF_estudo_caso" /o:"kakof" /d:sonar.login="${{ secrets.SONAR_TOKEN_USE_CASE }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths="coverage/SonarQube.xml"
+          dotnet sonarscanner begin /k:"KakoF_Estudo_Caso" /o:"kakof" /d:sonar.login="${{ secrets.SONAR_TOKEN_USE_CASE }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths="coverage/SonarQube.xml"
           dotnet build
           dotnet test --collect:"XPlat Code Coverage" --results-directory ./coverage
           reportgenerator "-reports:./coverage/*/coverage.cobertura.xml" "-targetdir:coverage" "-reporttypes:SonarQube"
