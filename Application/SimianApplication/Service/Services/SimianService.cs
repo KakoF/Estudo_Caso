@@ -25,8 +25,7 @@ namespace Service.Services
         public async Task<IsSimianResponseDTO> VerifyDnaAsync(IsSimianRequestDTO data)
         {
             _logger.LogWarning("Inicio de analise do Dna: {0}", string.Join(",", data.Dna));
-            /*_notification.AddNotification(500, "Titulo do Erro", "Primeiro Erro genérico");
-            _notification.AddNotification("Titulo do Erro", "Segundo Erro genérico");*/
+            //_notification.AddNotification(500, "Titulo do Erro", "Primeiro Erro genérico");
             var isSimian = ParseArray(_patternsExecute.Execute(data.Dna)).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
             await _repository.CreateAsync(simian);
