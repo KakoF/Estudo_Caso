@@ -1,8 +1,9 @@
 ﻿using Domain.Abstractions;
-using Domain.Interfaces.Notifications;
+using Domain.DTO.IsSimianDTO.Validators;
+using Domain.DTO.IsSimianDTO;
 using Domain.Interfaces.Repositories;
 using Domain.Interfaces.Services;
-using Domain.Notifications;
+using FluentValidation;
 using Infra.Repositories;
 using Service.Implementations;
 using Service.Services;
@@ -13,6 +14,7 @@ namespace SimianApplication.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
 
             services.AddScoped<ISimianRepository, SimianRepository>();
             services.AddScoped<ISimianCalcRepository, SimianCalcRepository>();

@@ -3,10 +3,6 @@ using Infra.Interfaces;
 using Infra.DataConnector;
 using SimianApplication.Extensions;
 using FluentValidation.AspNetCore;
-using System.Reflection;
-using Domain.DTO.IsSimianDTO.Validators;
-using Domain.DTO.IsSimianDTO;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using SimianApplication.Helpers.Filters;
 using Domain.Interfaces.Notifications;
@@ -27,8 +23,6 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
-builder.Services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
