@@ -50,7 +50,7 @@ jobs:
         working-directory: ./Application/SimianApplication
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_USE_CASE }}
+          SONAR_TOKEN_USE_CASE: ${{ secrets.SONAR_TOKEN_USE_CASE }}
         shell: pwsh
         run: |
           dotnet sonarscanner begin /k:"KakoF_estudo_caso" /o:"kakof" /d:sonar.login="${{ secrets.SONAR_TOKEN_USE_CASE }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths="coverage/SonarQube.xml"
