@@ -348,4 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/Application/SimianApplication/coverage/a1902378-4b88-40e0-ab35-4d7719dc246f/coverage.cobertura.xml
+/Application/SimianApplication/coverage/
