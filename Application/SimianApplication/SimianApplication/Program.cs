@@ -6,6 +6,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using SimianApplication.Helpers.Filters;
 using Prometheus;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +28,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration["ConnectionStrings:postgree"], healthQuery: "SELECT 1;", failureStatus: HealthStatus.Degraded, name: "Postgre Database").ForwardToPrometheus()
+    .AddMongoDb(builder.Configuration["ConnectionStrings:mongo"], name: "Mongo Log").ForwardToPrometheus()
+    .ForwardToPrometheus();
+
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
@@ -42,7 +50,7 @@ if (app.Environment.IsDevelopment())
 
 /*INICIO DA CONFIGURA��O - PROMETHEUS*/
 // Custom Metrics to count requests for each endpoint and the method
-var counter = Metrics.CreateCounter("SimianApplication", "Counts requests to the SimianApplication API endpoints",
+var counter = Metrics.CreateCounter("SimianApplicationEndpointCounter", "Counts requests to the SimianApplication API endpoints",
     new CounterConfiguration
     {
         LabelNames = new[] { "method", "endpoint" }
@@ -57,6 +65,11 @@ app.Use((context, next) =>
 // Use the prometheus middleware
 app.UseMetricServer();
 app.UseHttpMetrics();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 /*FIM DA CONFIGURA��O - PROMETHEUS*/
 

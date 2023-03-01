@@ -10,7 +10,7 @@ namespace Infra.DataConnector
         public PostgreeConnector(string connectionString)
         {
             dbConnection = new NpgsqlConnection(connectionString);
-            dbConnection.Open();
+            //dbConnection.Open();
         }
 
         public IDbConnection dbConnection { get; }

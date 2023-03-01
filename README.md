@@ -22,3 +22,4 @@ Artigos usados:
 - https://grafana.com/docs/grafana-cloud/quickstart/docker-compose-linux/
 - https://medium.com/guide-lab/monitoramento-prometheus-grafana-e-net-core-3-1-parte-1-63a43b845e9f
 https://www.c-sharpcorner.com/article/instrumenting-asp-net-core-application-for-exporting-metrics-to-prometheus/
+- https://dev.to/ingvarx/monitoring-your-dotnet-service-using-prometheus-2hhn
