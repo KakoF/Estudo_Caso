@@ -65,7 +65,6 @@ app.Use((context, next) =>
 // Use the prometheus middleware
 app.UseMetricServer();
 app.UseHttpMetrics();
-
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
