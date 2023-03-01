@@ -5,8 +5,7 @@ using SimianApplication.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using SimianApplication.Helpers.Filters;
-using Domain.Interfaces.Notifications;
-using Domain.Notifications;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +39,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+/*INICIO DA CONFIGURA��O - PROMETHEUS*/
+// Custom Metrics to count requests for each endpoint and the method
+var counter = Metrics.CreateCounter("SimianApplication", "Counts requests to the SimianApplication API endpoints",
+    new CounterConfiguration
+    {
+        LabelNames = new[] { "method", "endpoint" }
+    });
+
+app.Use((context, next) =>
+{
+    counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
+    return next();
+});
+
+// Use the prometheus middleware
+app.UseMetricServer();
+app.UseHttpMetrics();
+
+/*FIM DA CONFIGURA��O - PROMETHEUS*/
 
 app.UseAuthorization();
 

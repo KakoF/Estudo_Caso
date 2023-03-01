@@ -39,12 +39,15 @@ services:
     container_name: prometheus
     hostname: prometheus
     restart: unless-stopped
+    #network_mode: host
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+    #extra_hosts:
+    #  - "host.docker.internal:host-gateway"
     ports:
       - 9090:9090
     networks:
