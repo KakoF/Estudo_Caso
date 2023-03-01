@@ -7,6 +7,8 @@ using FluentValidation;
 using Infra.Repositories;
 using Service.Implementations;
 using Service.Services;
+using Domain.Interfaces.Notifications;
+using Domain.Notifications;
 
 namespace SimianApplication.Extensions
 {
@@ -14,8 +16,7 @@ namespace SimianApplication.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
-
+            services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
             services.AddScoped<ISimianRepository, SimianRepository>();
             services.AddScoped<ISimianCalcRepository, SimianCalcRepository>();
             services.AddScoped<IStatsService, StatsService>();
@@ -25,8 +26,9 @@ namespace SimianApplication.Extensions
             services.AddScoped<SimianPatternAbstract, DiagonalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, HorizontalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, VerticalSimianPattern>();
-           
-           
+
+            services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
+
             return services;
         }
     }

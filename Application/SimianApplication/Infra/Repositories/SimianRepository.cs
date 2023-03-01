@@ -24,6 +24,11 @@ namespace Infra.Repositories
 
         }
 
+        public async Task<SimianEntity> GetAsync(int id)
+        {
+            return await _connector.dbConnection.QueryFirstOrDefaultAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian where id = @id", new { id });
+        }
+
         public async Task<SimianEntity> GetAsync(string dna)
         {
             return await _connector.dbConnection.QueryFirstOrDefaultAsync<SimianEntity>("Select id, dna, is_simian as IsSimian, created_at as CreatedAt, updated_at as UpdatedAt from Simian where dna = @dna", new { dna });

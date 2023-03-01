@@ -1,9 +1,4 @@
 ﻿using Domain.Interfaces.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Notifications
 {
@@ -17,9 +12,9 @@ namespace Domain.Notifications
         }
         public bool HasNotification() => _notifications.Any();
 
-        public string GetMessage() => _notifications.FirstOrDefault().Message;
+        public string GetMessage() => _notifications.LastOrDefault().Message;
 
-        public int GetStatusCode() => _notifications.FirstOrDefault().StatusCode;
+        public int GetStatusCode() => _notifications.LastOrDefault().StatusCode;
 
         public IReadOnlyCollection<Notification> GetNotifications() => _notifications;
 

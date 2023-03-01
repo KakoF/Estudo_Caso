@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.DTO.IsSimianDTO;
 using Domain.Interfaces.Notifications;
 using Domain.Notifications;
+using Domain.DTO.SimianDTO;
 
 namespace Service.Services
 {
@@ -25,11 +26,22 @@ namespace Service.Services
         public async Task<IsSimianResponseDTO> VerifyDnaAsync(IsSimianRequestDTO data)
         {
             _logger.LogWarning("Inicio de analise do Dna: {0}", string.Join(",", data.Dna));
-            //_notification.AddNotification(500, "Titulo do Erro", "Primeiro Erro genérico");
             var isSimian = ParseArray(_patternsExecute.Execute(data.Dna)).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
             await _repository.CreateAsync(simian);
             return new IsSimianResponseDTO(simian.IsSimian);
+        }
+
+        public async Task<SimianResponseDTO> Get(int id)
+        {
+            var response = await _repository.GetAsync(id);
+            if (response == null)
+            {
+                _notification.AddNotification(404, "Simian não encontrado", $"Não foi possível encontrar simian referente ao id {id}");
+                _notification.AddNotification(404, "Simian not found", $"Can't found simin at id {id}");
+                return null;
+            }
+            return new SimianResponseDTO(response.Id, response.Dna, response.IsSimian);
         }
 
         private IEnumerable<bool> ParseArray(IEnumerable<bool[]> array)
