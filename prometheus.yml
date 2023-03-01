@@ -9,4 +9,4 @@ scrape_configs:
   - job_name: 'SimianApplication'
     metrics_path: /metrics
     static_configs:
-      - targets: ['172.17.0.1:5251']
+      - targets: ['host.docker.internal:5251']
