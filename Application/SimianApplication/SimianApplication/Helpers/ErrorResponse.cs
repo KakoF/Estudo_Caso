@@ -7,6 +7,7 @@ namespace SimianApplication.Helpers
         public int StatusCode { get; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public object? Errors { get; }
         public ErrorResponse(int statusCode, string? message = null, object? arrayMessage = null)
         {
@@ -25,7 +26,7 @@ namespace SimianApplication.Helpers
                 case 405:
                     return "Método não permitido";
                 case 500:
-                    return "Um erro não tratado ocorreu no request";
+                    return "Erro interno no servidor";
                 default:
                     return null;
             }

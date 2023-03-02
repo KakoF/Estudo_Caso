@@ -9,6 +9,7 @@ using Service.Implementations;
 using Service.Services;
 using Domain.Interfaces.Notifications;
 using Domain.Notifications;
+using SimianApplication.Helpers.Middleware;
 
 namespace SimianApplication.Extensions
 {

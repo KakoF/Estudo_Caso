@@ -13,20 +13,12 @@ namespace Service.Implementations
 
         public override bool[] CheckPattern(string[] dna)
         {
-            try
-            {
-                bool[] isSimian = new bool[dna.Length];
-                foreach (var row in dna.Select((value, index) => new { index, value }))
-                    isSimian[row.index] = DefaultPattern.IsMatch(row.value);
+            bool[] isSimian = new bool[dna.Length];
+            foreach (var row in dna.Select((value, index) => new { index, value }))
+                isSimian[row.index] = DefaultPattern.IsMatch(row.value);
 
-                _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian.Select(x => x));
-                return isSimian;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro em processar analise do Dna");
-                throw new Exception("Internal Server Error");
-            }
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", dna), isSimian.Select(x => x));
+            return isSimian;
         }
     }
 }

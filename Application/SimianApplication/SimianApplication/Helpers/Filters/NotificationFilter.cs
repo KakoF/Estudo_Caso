@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using Domain.Interfaces.Notifications;
 using Domain.Notifications;
 using Newtonsoft.Json;
@@ -17,7 +15,7 @@ namespace SimianApplication.Helpers.Filters
 
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
-           
+
             if (_notification.HasNotification())
             {
                 context.HttpContext.Response.StatusCode = _notification.GetStatusCode();
@@ -32,6 +30,6 @@ namespace SimianApplication.Helpers.Filters
 
             await next();
         }
-      
+
     }
 }

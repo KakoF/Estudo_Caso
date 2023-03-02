@@ -9,6 +9,7 @@ using Prometheus;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SimianApplication.Helpers.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,5 +76,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
 app.Run();

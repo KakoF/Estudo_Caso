@@ -88,34 +88,24 @@ namespace Service.Implementations
 
         public override bool[] CheckPattern(string[] dna)
         {
-            try
+            string[,] newArray = new string[dna.Length, dna[0].Length];
+            foreach (var item in dna.Select((value, index) => new { index, value }))
             {
-                string[,] newArray = new string[dna.Length, dna[0].Length];
-                foreach (var item in dna.Select((value, index) => new { index, value }))
+                char[] row = item.value.ToCharArray();
+                foreach (var chars in row.Select((value, index) => new { index, value }))
                 {
-                    char[] row = item.value.ToCharArray();
-                    foreach (var chars in row.Select((value, index) => new { index, value }))
-                    {
-                        newArray[item.index, chars.index] = chars.value.ToString();
-                    }
+                    newArray[item.index, chars.index] = chars.value.ToString();
                 }
-                var newArraySimian = ParseDiagonalSimian(newArray, dna.Length);
-                bool[] isSimian = new bool[newArraySimian.Length];
-                foreach (var row in newArraySimian.Select((value, index) => new { index, value }))
-                    isSimian[row.index] = DefaultPattern.IsMatch(row.value);
-
-                _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", newArraySimian), isSimian.Select(x => x));
-
-                return isSimian;
             }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "Erro em processar analise do Dna");
-                throw new Exception("Internal Server Error");
-            }
-            
+            var newArraySimian = ParseDiagonalSimian(newArray, dna.Length);
+            bool[] isSimian = new bool[newArraySimian.Length];
+            foreach (var row in newArraySimian.Select((value, index) => new { index, value }))
+                isSimian[row.index] = DefaultPattern.IsMatch(row.value);
+
+            _logger.LogWarning("Resultado analise {0}: {1}", string.Join(",", newArraySimian), isSimian.Select(x => x));
+
+            return isSimian;
         }
 
-       
     }
 }
