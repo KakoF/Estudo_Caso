@@ -28,17 +28,13 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddHealthChecks()
-    .AddNpgSql(builder.Configuration["ConnectionStrings:postgree"], healthQuery: "SELECT 1;", failureStatus: HealthStatus.Degraded, name: "Postgre Database").ForwardToPrometheus()
-    .AddMongoDb(builder.Configuration["ConnectionStrings:mongo"], name: "Mongo Log").ForwardToPrometheus()
-    .ForwardToPrometheus();
-
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 builder.Services.AddScoped<IDbConnector>(db => new PostgreeConnector(builder.Configuration["ConnectionStrings:postgree"]));
+
 builder.Services.RegisterServices();
+builder.Services.RegisterMetrics(builder);
 
 var app = builder.Build();
 
