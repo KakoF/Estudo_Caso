@@ -33,7 +33,7 @@ builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 builder.Services.AddScoped<IDbConnector>(db => new PostgreeConnector(builder.Configuration["ConnectionStrings:postgree"]));
 
-builder.Services.RegisterServices();
+builder.Services.RegisterServices(builder);
 builder.Services.RegisterMetrics(builder);
 
 var app = builder.Build();
