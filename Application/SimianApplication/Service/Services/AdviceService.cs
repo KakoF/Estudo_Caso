@@ -23,10 +23,8 @@ namespace Service.Services
 
         public async Task<AdviceModel> Get()
         {
-            var respone = await _client.Get("advicer");
-            if (respone == null)
-                return null;
-            return (AdviceModel?)respone.Data;
+            var respone = await _client.Get("advice");
+            return (AdviceModel)respone?.Data ?? null;
         }
         
     }

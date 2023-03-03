@@ -25,9 +25,7 @@ namespace Service.Services
         public async Task<ChuckNorrisModel> Get()
         {
             var respone = await _client.Get("jokes/random");
-            if (respone == null)
-                return null;
-            return (ChuckNorrisModel)respone.Data;
+            return (ChuckNorrisModel)respone?.Data ?? null;
         }
         
     }
