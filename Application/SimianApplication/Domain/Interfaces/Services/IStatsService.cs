@@ -1,4 +1,5 @@
-﻿using Domain.DTO.StatsDTO;
+﻿using Domain.DTO.SimianCalcDTO;
+using Domain.DTO.StatsDTO;
 using Domain.Entities;
 
 namespace Domain.Interfaces.Services
@@ -6,6 +7,6 @@ namespace Domain.Interfaces.Services
     public interface IStatsService
     {
         public Task<StatsResponseDTO> GetStatsAsync();
-        public Task<IEnumerable<SimianCalcEntity>> GetAsync();
+        public Task<IEnumerable<SimianCalcResponseDTO>> GetAsync();
     }
 }

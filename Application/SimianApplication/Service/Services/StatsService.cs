@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Domain.Interfaces.Repositories;
 using Domain.Entities;
-using Domain.DTO.IsSimianDTO;
 using Domain.DTO.StatsDTO;
 using Domain.Interfaces.Cache;
+using Domain.DTO.SimianCalcDTO;
 
 namespace Service.Services
 {
@@ -27,10 +27,10 @@ namespace Service.Services
             return new StatsResponseDTO(simianCalc.CountIsSimian, simianCalc.CountIsHuman, simianCalc.Ratio);
         }
 
-        public async Task<IEnumerable<SimianCalcEntity>> GetAsync()
+        public async Task<IEnumerable<SimianCalcResponseDTO>> GetAsync()
         {
-            var data = await _cahceMetods.GetOrCreateAsync("List_SimianCalcEntity", async () => await _repository.GetAllAsync());
-            return await _repository.GetAllAsync();
+            var data = (await _cahceMetods.GetOrCreateAsync("List_SimianCalcEntity", async () => await _repository.GetAllAsync())).ListDTO();
+            return data;
             
         }
 
