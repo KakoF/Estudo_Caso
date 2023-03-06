@@ -1,6 +1,5 @@
 ﻿
 using Domain.Notifications;
-using System.Collections.ObjectModel;
 
 namespace Domain.Interfaces.Notifications
 {

@@ -11,6 +11,8 @@ using Domain.Interfaces.Notifications;
 using Domain.Notifications;
 using Domain.Interfaces.Clients;
 using IntegratorHttpClient.Implementations;
+using Infra.DataConnector;
+using Infra.Interfaces;
 
 namespace SimianApplication.Extensions
 {
@@ -18,6 +20,15 @@ namespace SimianApplication.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
+
+            builder.Services.AddScoped<IDbConnector>(db => new PostgreeConnector(builder.Configuration["ConnectionStrings:postgree"]));
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration["ConnectionStrings:redis:connection"];
+                options.InstanceName = builder.Configuration["ConnectionStrings:redis:name"];
+            });
+
+
             services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
             services.AddScoped<ISimianRepository, SimianRepository>();
             services.AddScoped<ISimianCalcRepository, SimianCalcRepository>();

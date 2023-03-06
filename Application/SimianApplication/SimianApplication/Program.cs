@@ -1,6 +1,4 @@
 using NLog.Web;
-using Infra.Interfaces;
-using Infra.DataConnector;
 using SimianApplication.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +6,6 @@ using SimianApplication.Helpers.Filters;
 using Prometheus;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SimianApplication.Helpers.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +28,7 @@ builder.Services.AddSwaggerGen();
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
-builder.Services.AddScoped<IDbConnector>(db => new PostgreeConnector(builder.Configuration["ConnectionStrings:postgree"]));
+
 
 builder.Services.RegisterServices(builder);
 builder.Services.RegisterMetrics(builder);

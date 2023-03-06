@@ -1,10 +1,4 @@
-﻿using Domain.Models.Clients.Advice;
-using Domain.Models.Clients.ChuckNorris;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Models.Clients.ChuckNorris;
 
 namespace Domain.Interfaces.Services
 {
