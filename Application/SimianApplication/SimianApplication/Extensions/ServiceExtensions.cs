@@ -34,6 +34,7 @@ namespace SimianApplication.Extensions
             services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
             services.AddScoped<ISimianRepository, SimianRepository>();
             services.AddScoped<ISimianCalcRepository, SimianCalcRepository>();
+            services.AddScoped<ISimianCalcService, SimanCalcService>();
             services.AddScoped<IStatsService, StatsService>();
             services.AddScoped<ISimianService, SimianService>();
             services.AddScoped<IAdviceService, AdviceService>();
