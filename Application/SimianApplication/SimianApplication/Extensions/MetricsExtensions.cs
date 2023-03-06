@@ -10,6 +10,7 @@ namespace SimianApplication.Extensions
             services.AddHealthChecks()
             .AddNpgSql(builder.Configuration["ConnectionStrings:postgree"], healthQuery: "SELECT 1;", failureStatus: HealthStatus.Degraded, name: "Postgre Database")
             .AddMongoDb(builder.Configuration["ConnectionStrings:mongo"], name: "Mongo Log")
+            .AddRedis(builder.Configuration["ConnectionStrings:redis:connection"], name: "Redis Database")
             .ForwardToPrometheus();
 
             return services;

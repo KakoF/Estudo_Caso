@@ -13,6 +13,8 @@ using Domain.Interfaces.Clients;
 using IntegratorHttpClient.Implementations;
 using Infra.DataConnector;
 using Infra.Interfaces;
+using Domain.Interfaces.Cache;
+using Infra.Caching;
 
 namespace SimianApplication.Extensions
 {
@@ -25,9 +27,9 @@ namespace SimianApplication.Extensions
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = builder.Configuration["ConnectionStrings:redis:connection"];
-                options.InstanceName = builder.Configuration["ConnectionStrings:redis:name"];
+                options.InstanceName = builder.Configuration["ConnectionStrings:redis:key"];
             });
-
+            services.AddMemoryCache();
 
             services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
             services.AddScoped<ISimianRepository, SimianRepository>();
@@ -41,6 +43,12 @@ namespace SimianApplication.Extensions
             services.AddScoped<SimianPatternAbstract, DiagonalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, HorizontalSimianPattern>();
             services.AddScoped<SimianPatternAbstract, VerticalSimianPattern>();
+            
+            services.AddScoped<ICacheMethods, CacheMethods>();
+            services.AddScoped<IMemoryStorageCache, MemoryStorageCache>();
+            services.AddScoped<IRedisStorageCache, RedisStorageCache>();
+
+
 
             services.AddTransient<IValidator<IsSimianRequestDTO>, IsSimianValidator>();
 

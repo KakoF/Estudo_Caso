@@ -28,7 +28,7 @@ namespace Domain.Test.DTO.IsSimianDTO.Validators
                 "CTGAGA", "CTATGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"
             };
             IsSimianRequestDTO data = new IsSimianRequestDTO() { Dna = dna };
-            SimianEntity simianNull = null;
+            SimianEntity? simianNull = null;
 
             _mockSimianRepository.Setup(c => c.GetAsync(string.Join(",", data.Dna))).ReturnsAsync(simianNull);
 
@@ -41,7 +41,7 @@ namespace Domain.Test.DTO.IsSimianDTO.Validators
         {
             string[] dna = new string[] { };
             IsSimianRequestDTO data = new IsSimianRequestDTO() { Dna = dna };
-            SimianEntity simianNull = null;
+            SimianEntity? simianNull = null;
 
             _mockSimianRepository.Setup(c => c.GetAsync(string.Join(",", data.Dna))).ReturnsAsync(simianNull);
 

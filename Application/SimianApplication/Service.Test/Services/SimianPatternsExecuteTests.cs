@@ -23,24 +23,6 @@ namespace Service.Test.Services
             _mockPatterns = _mock.Create<IEnumerable<SimianPatternAbstract>>();
             _sut = new SimianPatternsExecute(_mockPatterns.Object);
         }
-
-        [Fact]
-        public void Execute_Should_CheckPattern()
-        {
-            /*
-            // Arrange
-            string[] dna = new string[] {
-                "CTGAGA", "CTATGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"
-            };
-
-            // Act
-            var result = _sut.Execute(dna);
-
-            // Assert
-            Assert.NotEmpty(result.Where(x => x.Contains(true)));
-            */
-            
-        }
-       
+        
     }
 }

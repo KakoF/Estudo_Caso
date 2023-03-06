@@ -6,24 +6,29 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class SimianCalcEntity : BaseEntity
+    public class SimianCalcEntity
     {
-        
-        public int Total { get; private set; }
-        public int CountIsSimian { get; private set; }
-        public int CountIsHuman { get; private set; }
+        public DateTime Id { get; private set; }
+        public DateTime? CreatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
+        public decimal Total { get; private set; }
+        public decimal CountIsSimian { get; private set; }
+        public decimal CountIsHuman { get; private set; }
         public decimal IsSimianPercent { get; private set; }
         public decimal IsHumanPercent { get; private set; }
         public decimal Ratio { get; private set; }
 
-        public SimianCalcEntity(int id, int total, int countIsSimian, int countIsHuman, decimal isSimianPercente, decimal isHumanPercente, decimal ratio, DateTime? createdAt, DateTime? updatedAt) : base(id, createdAt, updatedAt)
+        public SimianCalcEntity(DateTime id, decimal total, decimal countIsSimian, decimal countIsHuman, decimal isSimianPercente, decimal isHumanPercente, decimal ratio, DateTime? createdAt, DateTime? updatedAt)
         {
+            Id = id; 
             Total = total;
             CountIsSimian = countIsSimian;
             CountIsHuman = countIsHuman;
             IsSimianPercent = isSimianPercente;
             IsHumanPercent = isHumanPercente;
             Ratio = ratio;
+            CreatedAt= createdAt;
+            UpdatedAt= updatedAt;
 
         }
     }

@@ -4,6 +4,7 @@ using Domain.Interfaces.Repositories;
 using Domain.Entities;
 using Domain.DTO.IsSimianDTO;
 using Domain.DTO.StatsDTO;
+using Domain.Interfaces.Cache;
 
 namespace Service.Services
 {
@@ -11,11 +12,13 @@ namespace Service.Services
     {
         private readonly ILogger<StatsService> _logger;
         private readonly ISimianCalcRepository _repository;
+        private readonly ICacheMethods _cahceMetods;
 
-        public StatsService(ILogger<StatsService> logger, ISimianCalcRepository repository)
+        public StatsService(ILogger<StatsService> logger, ISimianCalcRepository repository, ICacheMethods cacheMethods)
         {
             _logger = logger;
             _repository = repository;
+            _cahceMetods = cacheMethods;
         }
 
         public async Task<StatsResponseDTO> GetStatsAsync()
@@ -23,6 +26,13 @@ namespace Service.Services
             var simianCalc = await _repository.GetAsync();
             return new StatsResponseDTO(simianCalc.CountIsSimian, simianCalc.CountIsHuman, simianCalc.Ratio);
         }
-        
+
+        public async Task<IEnumerable<SimianCalcEntity>> GetAsync()
+        {
+            var data = await _cahceMetods.GetOrCreateAsync("List_SimianCalcEntity", async () => await _repository.GetAllAsync());
+            return await _repository.GetAllAsync();
+            
+        }
+
     }
 }

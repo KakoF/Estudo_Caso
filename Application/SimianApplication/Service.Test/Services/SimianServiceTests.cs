@@ -36,11 +36,5 @@ namespace Service.Test.Services
             _mockNotification = _mock.Create<INotificationHandler<Notification>>();
             _sut = new SimianService(_mockLogger.Object, _mockPatternsExecute.Object, _mockRepository.Object, _mockNotification.Object);
         }
-
-        [Fact]
-        public async Task VerifyDnaAsync_StateUnderTest_ExpectedBehavior()
-        {
-
-        }
     }
 }
