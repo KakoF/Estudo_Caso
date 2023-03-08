@@ -7,6 +7,8 @@ using Prometheus;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using SimianApplication.Helpers.Middleware;
+using App.Metrics.AspNetCore;
+using App.Metrics.Formatters.Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,18 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 
+/*builder.Host.UseMetricsWebTracking();
+builder.Host.UseMetrics(opt =>
+{
+    opt.EndpointOptions = endpointOptions =>
+    {
+        endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
+        endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+        endpointOptions.EnvironmentInfoEndpointEnabled = false;
+    };
+});
+
+*/
 
 builder.Services.RegisterServices(builder);
 builder.Services.RegisterMetrics(builder);
@@ -42,23 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-/*INICIO DA CONFIGURA��O - PROMETHEUS*/
-// Custom Metrics to count requests for each endpoint and the method
-var counter = Metrics.CreateCounter("SimianApplicationEndpointCounter", "Counts requests to the SimianApplication API endpoints",
-    new CounterConfiguration
-    {
-        LabelNames = new[] { "method", "endpoint" }
-    });
-
-app.Use((context, next) =>
-{
-    counter.WithLabels(context.Request.Method, context.Request.Path).Inc();
-    return next();
-});
-
-// Use the prometheus middleware
-app.UseMetricServer();
-app.UseHttpMetrics();
+//app.UseHttpMetrics();
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
@@ -69,6 +67,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseMetricsAllEndpoints();
+app.UseMetricsAllMiddleware();
 
 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 

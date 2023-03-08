@@ -6,6 +6,8 @@ using Domain.DTO.IsSimianDTO;
 using Domain.Interfaces.Notifications;
 using Domain.Notifications;
 using Domain.DTO.SimianDTO;
+using App.Metrics;
+using Domain.Metrics;
 
 namespace Service.Services
 {
@@ -15,13 +17,15 @@ namespace Service.Services
         private readonly ISimianPatternsExecute _patternsExecute;
         private readonly ISimianRepository _repository;
         private readonly INotificationHandler<Notification> _notification;
+        private readonly IMetrics _metrics;
 
-        public SimianService(ILogger<SimianService> logger, ISimianPatternsExecute patternsExecute, ISimianRepository repository, INotificationHandler<Notification> notification)
+        public SimianService(ILogger<SimianService> logger, ISimianPatternsExecute patternsExecute, ISimianRepository repository, INotificationHandler<Notification> notification, IMetrics metrics)
         {
             _logger = logger;
             _patternsExecute = patternsExecute;
             _repository = repository;
             _notification = notification;
+            _metrics = metrics;
         }
         public async Task<IsSimianResponseDTO> VerifyDnaAsync(IsSimianRequestDTO data)
         {
@@ -29,6 +33,7 @@ namespace Service.Services
             var isSimian = ParseArray(_patternsExecute.Execute(data.Dna)).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
             await _repository.CreateAsync(simian);
+            _metrics.Measure.Counter.Increment(MetricsRegistry.SimianDnaResult);
             return new IsSimianResponseDTO(simian.IsSimian);
         }
 
