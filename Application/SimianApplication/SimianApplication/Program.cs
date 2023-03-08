@@ -67,7 +67,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 /*FIM DA CONFIGURA��O - PROMETHEUS*/
 
 app.UseAuthorization();
-
+app.MapMetrics();
 app.MapControllers();
 
 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
