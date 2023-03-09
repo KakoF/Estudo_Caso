@@ -21,5 +21,6 @@ Artigos usados:
 - https://medium.com/xp-inc/monitorando-aplica%C3%A7%C3%B5es-docker-com-prometheus-e-grafana-593f507fc17
 - https://grafana.com/docs/grafana-cloud/quickstart/docker-compose-linux/
 - https://medium.com/guide-lab/monitoramento-prometheus-grafana-e-net-core-3-1-parte-1-63a43b845e9f
-https://www.c-sharpcorner.com/article/instrumenting-asp-net-core-application-for-exporting-metrics-to-prometheus/
+- https://www.c-sharpcorner.com/article/instrumenting-asp-net-core-application-for-exporting-metrics-to-prometheus/
 - https://dev.to/ingvarx/monitoring-your-dotnet-service-using-prometheus-2hhn
+- https://x-team.com/blog/set-up-rabbitmq-with-docker-compose/
