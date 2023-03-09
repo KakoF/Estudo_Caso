@@ -6,6 +6,8 @@ using Domain.DTO.IsSimianDTO;
 using Domain.Interfaces.Notifications;
 using Domain.Notifications;
 using Domain.DTO.SimianDTO;
+using System.Diagnostics.Metrics;
+using Prometheus;
 
 namespace Service.Services
 {
@@ -15,6 +17,10 @@ namespace Service.Services
         private readonly ISimianPatternsExecute _patternsExecute;
         private readonly ISimianRepository _repository;
         private readonly INotificationHandler<Notification> _notification;
+        private Counter counter = Metrics.CreateCounter("ResultVerifyDna", "SimianService", new CounterConfiguration
+        {
+            LabelNames = new[] { "isSimian"}
+        });
 
         public SimianService(ILogger<SimianService> logger, ISimianPatternsExecute patternsExecute, ISimianRepository repository, INotificationHandler<Notification> notification)
         {
@@ -29,6 +35,8 @@ namespace Service.Services
             var isSimian = ParseArray(_patternsExecute.Execute(data.Dna)).Where(x => x.Equals(true)).Count() >= 2;
             var simian = new SimianEntity(string.Join(",", data.Dna), isSimian);
             await _repository.CreateAsync(simian);
+            counter.WithLabels(simian.IsSimian.ToString()).Inc();
+            
             return new IsSimianResponseDTO(simian.IsSimian);
         }
 
