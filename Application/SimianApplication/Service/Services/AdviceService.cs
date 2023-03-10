@@ -1,31 +1,29 @@
 ﻿using Domain.Interfaces.Services;
-using Microsoft.Extensions.Logging;
-using Domain.Interfaces.Repositories;
-using Domain.Entities;
-using Domain.DTO.IsSimianDTO;
-using Domain.DTO.StatsDTO;
 using Domain.Models.Clients.Advice;
 using Domain.Interfaces.Clients;
-using Domain.Models.Clients;
+using IntegratorMessageQueue.Interfaces.RabbitMq;
+using IntegratorMessageQueue.Models;
 
 namespace Service.Services
 {
     public class AdviceService : IAdviceService
     {
-        private readonly ILogger<AdviceService> _logger;
+        private readonly IRabbitMqIntegrator _rabbit;
         private readonly IAdviceClient _client;
 
-        public AdviceService(ILogger<AdviceService> logger, IAdviceClient client)
+        public AdviceService(IRabbitMqIntegrator rabbit, IAdviceClient client)
         {
-            _logger = logger;
+            _rabbit = rabbit;
             _client = client;
         }
 
         public async Task<AdviceModel> Get()
         {
             var respone = await _client.Get("advice");
+            if (respone?.Data != null)
+                _rabbit.PublishExchange(respone.Data, queueName: "AdviceQueue", exchange: "Advice", routingKey: "inserted", EnumExchangeTypes.direct, durable: true);
             return (AdviceModel)respone?.Data ?? null;
         }
-        
+
     }
 }

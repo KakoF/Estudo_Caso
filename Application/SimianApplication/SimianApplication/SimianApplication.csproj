@@ -32,6 +32,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infra\Infra.csproj" />
     <ProjectReference Include="..\IntegratorHttpClient\IntegratorHttpClient.csproj" />
+    <ProjectReference Include="..\IntegratorMessageQueue\IntegratorMessageQueue.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 

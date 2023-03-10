@@ -24,3 +24,4 @@ Artigos usados:
 - https://www.c-sharpcorner.com/article/instrumenting-asp-net-core-application-for-exporting-metrics-to-prometheus/
 - https://dev.to/ingvarx/monitoring-your-dotnet-service-using-prometheus-2hhn
 - https://x-team.com/blog/set-up-rabbitmq-with-docker-compose/
+- https://www.youtube.com/watch?v=FcF5iufd2P0&t=14s

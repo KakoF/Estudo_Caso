@@ -15,6 +15,8 @@ using Infra.DataConnector;
 using Infra.Interfaces;
 using Domain.Interfaces.Cache;
 using Infra.Caching;
+using IntegratorMessageQueue.Interfaces.RabbitMq;
+using IntegratorMessageQueue.RabbitMq;
 
 namespace SimianApplication.Extensions
 {
@@ -22,6 +24,13 @@ namespace SimianApplication.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
+            
+            builder.Services.AddSingleton<IRabbitMqIntegrator>(sp =>
+            {
+                var rabbitLooger = sp.GetRequiredService<ILogger<RabbitMqIntegrator>>();
+                var connection = builder.Configuration["ConnectionStrings:rabbit:connection"];
+                return new RabbitMqIntegrator(rabbitLooger, connection);
+            });
 
             builder.Services.AddScoped<IDbConnector>(db => new PostgreeConnector(builder.Configuration["ConnectionStrings:postgree"]));
             services.AddStackExchangeRedisCache(options =>
@@ -30,6 +39,7 @@ namespace SimianApplication.Extensions
                 options.InstanceName = builder.Configuration["ConnectionStrings:redis:key"];
             });
             services.AddMemoryCache();
+
 
             services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
             services.AddScoped<ISimianRepository, SimianRepository>();
