@@ -54,6 +54,8 @@ namespace IntegratorMessageQueue.RabbitMq
             {
                 _channel.QueueDeclare(queue: queueName, durable: durable, exclusive: exclusive, autoDelete: autoDelete, arguments: arguments);
                 _channel.ExchangeDeclare(exchange: exchange, type.ToString(), durable: durable, autoDelete: autoDelete, arguments: arguments);
+                _channel.QueueBind(queueName, exchange, routingKey, arguments);
+
                 var byteMessage = Encoding.UTF8.GetBytes(stringMessage);
                 _channel.BasicPublish(exchange: exchange, routingKey: routingKey, basicProperties: null, body: byteMessage);
             }
