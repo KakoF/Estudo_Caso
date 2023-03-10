@@ -1,30 +1,28 @@
 ﻿using Domain.Interfaces.Services;
-using Microsoft.Extensions.Logging;
-using Domain.Interfaces.Repositories;
-using Domain.Entities;
-using Domain.DTO.IsSimianDTO;
-using Domain.DTO.StatsDTO;
-using Domain.Models.Clients.Advice;
 using Domain.Interfaces.Clients;
-using Domain.Models.Clients;
 using Domain.Models.Clients.ChuckNorris;
+using IntegratorMessageQueue.Models;
+using IntegratorMessageQueue.Interfaces.RabbitMq;
 
 namespace Service.Services
 {
     public class ChuckNorrisService : IChuckNorrisService
     {
-        private readonly ILogger<ChuckNorrisService> _logger;
+        private readonly IRabbitMqIntegrator _rabbit;
         private readonly IChuckNorrisClient _client;
 
-        public ChuckNorrisService(ILogger<ChuckNorrisService> logger, IChuckNorrisClient client)
+        public ChuckNorrisService(IRabbitMqIntegrator rabbit, IChuckNorrisClient client)
         {
-            _logger = logger;
+            _rabbit = rabbit;
             _client = client;
         }
 
         public async Task<ChuckNorrisModel> Get()
         {
             var respone = await _client.Get("jokes/random");
+            if (respone?.Data != null)
+                _rabbit.PublishExchange(respone.Data, queueName: "ChuckNorrisQueue", exchange: "ChuckNorris", routingKey: "inserted", EnumExchangeTypes.direct, durable: true);
+
             return (ChuckNorrisModel)respone?.Data ?? null;
         }
         
